@@ -14,6 +14,8 @@ public class EnemyMovement : MonoBehaviour
     public float rotationSpeed = 1;
     public float velocity = 1;
 
+    public float detectionDistance;
+
     //public float controllerDeadzone = 0;
 
     //bool flipSprite = false;
@@ -47,6 +49,8 @@ public class EnemyMovement : MonoBehaviour
     public Collider2D planeCollider;
 
     public SpriteRenderer spriteRenderer;
+
+    public GameObject enemyBullet;
 
     
 
@@ -242,8 +246,25 @@ public class EnemyMovement : MonoBehaviour
 
         Rb.velocity = transform.right * velocity;
 
+        //Detect player and shoot
+        //6 temp layer for player
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, detectionDistance);
+
+        //FIXME this is also broken wtf asjdljasldjla
+        //FIXME need a cooldown for shoot lmao
+        if (hit.collider != null)
+        {
+            Shoot();
+        }
 
 
+
+    }
+
+
+    private void Shoot()
+    {
+        Instantiate(enemyBullet, transform);
     }
 
 }
