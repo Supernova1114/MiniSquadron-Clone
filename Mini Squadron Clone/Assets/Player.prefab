@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 1050823443509830595}
   - component: {fileID: 1050823443509830207}
   - component: {fileID: 1050823443509830206}
+  - component: {fileID: 7097688902895200893}
   m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
@@ -142,6 +143,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletObj: {fileID: 1977987747547270390, guid: 3d6a85c762d9eeb4ea84ef5d595d71c4, type: 3}
   gunPos: {fileID: 1050823444095445780}
+--- !u!114 &7097688902895200893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050823443509830598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98e0263798b820541bc31051e11262d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1050823443876661212
 GameObject:
   m_ObjectHideFlags: 0

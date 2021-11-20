@@ -16,10 +16,10 @@ TagManager:
   - UI
   - IgnorePlayerColl
   - IgnoreEnemyColl
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - PlayerBullet
+  - EnemyBullet
   - 
   - 
   - 

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2374557677890953925}
   - component: {fileID: 2374557677890953927}
   - component: {fileID: 2374557677890953924}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: EnemyPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,6 @@ MonoBehaviour:
   Rb: {fileID: 0}
   rotationSpeed: 3
   velocity: 0.3
-  detectionDistance: 0.3
   animator: {fileID: 2374557679648230183}
   player: {fileID: 0}
   nonTrackingRotation: 0.1
@@ -118,6 +117,12 @@ MonoBehaviour:
   planeCollider: {fileID: 2374557677890953925}
   spriteRenderer: {fileID: 2374557679648230180}
   enemyBullet: {fileID: 1977987747547270390, guid: 906b8fcb9625b9b4f96593060e9d9e8b, type: 3}
+  detectionLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  detectionDistance: 3
+  detectionInterval: 0.3
+  shotCooldown: 1
 --- !u!1 &2374557678778615976
 GameObject:
   m_ObjectHideFlags: 0

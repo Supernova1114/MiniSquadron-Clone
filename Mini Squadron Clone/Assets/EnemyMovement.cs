@@ -14,7 +14,7 @@ public class EnemyMovement : MonoBehaviour
     public float rotationSpeed = 1;
     public float velocity = 1;
 
-    public float detectionDistance;
+    
 
     //public float controllerDeadzone = 0;
 
@@ -52,7 +52,15 @@ public class EnemyMovement : MonoBehaviour
 
     public GameObject enemyBullet;
 
-    
+    public LayerMask detectionLayer;
+    public float detectionDistance;
+    public float detectionInterval;
+
+    public float shotCooldown;
+    private float currentShotCooldown = 0;
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -246,16 +254,30 @@ public class EnemyMovement : MonoBehaviour
 
         Rb.velocity = transform.right * velocity;
 
-        //Detect player and shoot
-        //6 temp layer for player
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, detectionDistance);
-
-        //FIXME this is also broken wtf asjdljasldjla
-        //FIXME need a cooldown for shoot lmao
-        if (hit.collider != null)
+        if (Time.time > currentShotCooldown)
         {
-            Shoot();
+            //Detect player and shoot
+            //6 temp layer for player
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, detectionDistance, detectionLayer.value);
+
+            //FIXME this is also broken wtf asjdljasldjla
+            //FIXME need a cooldown for shoot lmao
+            if (hit.collider != null)
+            {
+                Shoot();
+                currentShotCooldown = shotCooldown + Time.time;
+
+            }
+            else
+            {
+                currentShotCooldown = detectionInterval + Time.time;
+
+            }
+
+
         }
+
+
 
 
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D Rb;
 
@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
 
     public float controllerDeadzone = 0;
 
-    bool flipSprite = false;
+    //bool flipSprite = false;
 
     public Animator animator;
 
@@ -31,6 +31,8 @@ public class Movement : MonoBehaviour
     public Quaternion targetQuat;
 
     private bool giveUserControl = true;
+
+    
 
 
 
@@ -56,10 +58,10 @@ public class Movement : MonoBehaviour
 
         pointerRotator.transform.position = transform.position;
 
-        if (giveUserControl)
+        if (giveUserControl && joystickVector.magnitude > 0.1f)
         targetQuat = Quaternion.Euler(0, 0, Mathf.Atan2(joystickVector.y, joystickVector.x) * Mathf.Rad2Deg);
 
-        print(targetQuat.eulerAngles);
+        //print(targetQuat.eulerAngles);
 
         if (joystickVector != Vector2.zero)
         pointerRotator.transform.rotation = Quaternion.Slerp(pointerRotator.transform.rotation, targetQuat, 0.1f);
@@ -107,6 +109,11 @@ public class Movement : MonoBehaviour
     {
         if (collision.CompareTag("EnemyBullet"))
         {
+
+            //FIXME put into coroutine to take away user control for a sec
+
+            giveUserControl = false;
+
             Vector2 relativeVect = (collision.transform.position - transform.position).normalized;
 
             if (relativeVect.y > 0)
@@ -124,6 +131,8 @@ public class Movement : MonoBehaviour
                 else
                     Rb.MoveRotation(transform.rotation.eulerAngles.z - hitRotationAmount);
             }
+
+            giveUserControl = true;
 
 
         }
@@ -150,11 +159,11 @@ public class Movement : MonoBehaviour
 
         giveUserControl = false;
 
-        yield return new WaitForEndOfFrame();
+        //yield return new WaitForEndOfFrame();
 
         targetQuat = Quaternion.Euler(0, 0, Mathf.Atan2(temp.y, temp.x) * Mathf.Rad2Deg);
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(1f);
 
         giveUserControl = true;
 
@@ -168,46 +177,22 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (joystickVector.magnitude > controllerDeadzone)//deadzone not effect cause normalized
+
+
+        if (!giveUserControl || (giveUserControl && joystickVector.magnitude > controllerDeadzone))//deadzone not effect cause normalized
         {
 
-            //Vector2 veloz = Rb.velocity;
-            //Vector2 interpRotation = Vector2.Lerp(transform.right, targetRotation, rotationSpeed * Time.deltaTime).normalized;
-
-            //float temp = 1 / (interpRotation - targetRotation).magnitude;
-            //rotationSpeed = temp * rotationSpeedFactor;
-
-            //Vector2 interpRotation = Vector2.SmoothDamp(transform.right, targetRotation, ref currentVelocity, 0.3f);
-            //transform.right = interpRotation;
 
             transform.rotation = Quaternion.Slerp(transform.rotation, targetQuat, 0.06f);
-
-
-            
-
-            //Rb.MoveRotation( Mathf.Atan2(interpRotation.y, interpRotation.x) * Mathf.Rad2Deg);
-
-
-
-
-            /*Vector2 slopeVect = (targetRotation - (Vector2)transform.right);
-
-            slopeVect = Vector2.SmoothDamp(transform.right, slopeVect, ref currentVelocity, smoothTime, maxSpeed);
-
-
-            float rotation = Mathf.Rad2Deg * Mathf.Atan2(slopeVect.y, slopeVect.x);
-
-            transform.rotation = Quaternion.Euler(0f, 0f, rotation);
-*/
-
-
 
         }
 
 
+
+
+
         Rb.velocity = transform.right * velocity;
-        
-        
+
 
     }
 
