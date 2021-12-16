@@ -200,11 +200,11 @@ public class EnemyMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-         if (collision.CompareTag("PlayerBullet"))
+        if (collision.CompareTag("PlayerBullet"))
         {
             bulletBehavior bulletScript = collision.GetComponent<bulletBehavior>();
 
-            healthPoints -= bulletScript.getDamage();
+            healthPoints -= bulletScript.GetDamage();
 
             print(healthPoints);
             

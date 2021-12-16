@@ -36,7 +36,7 @@ public class bulletBehavior : MonoBehaviour
         Destroy(this.gameObject, 0);
     }
 
-    public float getDamage()
+    public float GetDamage()
     {
         return damage;
     }

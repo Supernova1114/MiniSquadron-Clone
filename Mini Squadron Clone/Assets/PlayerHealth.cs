@@ -4,15 +4,41 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+
+    [SerializeField]
+    private float baseHealth;
+    private float healthPoints;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        healthPoints = baseHealth;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.CompareTag("EnemyBullet"))
+        {
+            bulletBehavior bulletScript = collision.GetComponent<bulletBehavior>();
+
+            healthPoints -= bulletScript.GetDamage();
+
+            if (healthPoints <= 0)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                //implement thing for adjusting smoke based on health
+            }
+        }
+
     }
+
+
+
+
+
+
 }

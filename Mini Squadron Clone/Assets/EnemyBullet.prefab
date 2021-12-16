@@ -146,4 +146,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rb: {fileID: 1977987747547270384}
   travelSpeed: 1
-  damage: 0
+  damage: 40
