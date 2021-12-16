@@ -10,7 +10,7 @@ public class bulletBehavior : MonoBehaviour
     public float travelSpeed = 1;
 
     [SerializeField]
-    private float damage = 0;
+    private int damage = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +36,7 @@ public class bulletBehavior : MonoBehaviour
         Destroy(this.gameObject, 0);
     }
 
-    public float GetDamage()
+    public int GetDamage()
     {
         return damage;
     }

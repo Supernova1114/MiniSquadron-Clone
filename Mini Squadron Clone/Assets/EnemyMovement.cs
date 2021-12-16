@@ -201,13 +201,7 @@ public class EnemyMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("PlayerBullet"))
-        {
-            bulletBehavior bulletScript = collision.GetComponent<bulletBehavior>();
-
-            healthPoints -= bulletScript.GetDamage();
-
-            print(healthPoints);
-            
+        {   
 
             Vector2 relativeVect = (collision.transform.position - transform.position).normalized;
             
@@ -227,18 +221,7 @@ public class EnemyMovement : MonoBehaviour
                     Rb.MoveRotation(transform.rotation.eulerAngles.z - hitRotationAmount);
             }
 
-            if (healthPoints <= 0)
-            {
-
-                spriteRenderer.enabled = false;
-                planeCollider.enabled = false;
-
-                particleSmoke.Stop();
-
-                particleExplode.Play();
-
-                Destroy(this.gameObject, 3);
-            }
+            
         }
     }
 
