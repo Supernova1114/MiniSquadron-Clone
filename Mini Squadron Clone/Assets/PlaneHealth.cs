@@ -12,13 +12,9 @@ public class PlaneHealth : MonoBehaviour
     private double healthPercentage;
     
 
-
-
     //Smoke
     [SerializeField]
     ParticleSystem[] smokeList = new ParticleSystem[4]; //A list of smokeTypes
-    [SerializeField]
-    ParticleSystem particleExplode;
 
 
     // Start is called before the first frame update
@@ -70,9 +66,7 @@ public class PlaneHealth : MonoBehaviour
                     smokeList[i].Stop();
                 }
 
-                particleExplode.Play();
-
-                Destroy(gameObject, 3);
+                SendMessage("Fall");
                 
             }
            

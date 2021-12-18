@@ -28,8 +28,6 @@ public class EnemyMovement : MonoBehaviour
 
     //public Collider2D behaviorCollider;
 
-    private float collisionNum = 0;
-
     private int faceDirection = 0;//left -1 or right 1
 
     public float nonTrackingRotation = 1;
@@ -40,15 +38,7 @@ public class EnemyMovement : MonoBehaviour
 
     public float hitRotationAmount = 0;
 
-    public float healthPoints = 100;
-
-    public ParticleSystem particleSmoke;
-    public ParticleSystem particleExplode;
-
-    public GameObject planeBody;
     public Collider2D planeCollider;
-
-    public SpriteRenderer spriteRenderer;
 
     public GameObject enemyBullet;
 
@@ -59,6 +49,7 @@ public class EnemyMovement : MonoBehaviour
     public float shotCooldown;
     private float currentShotCooldown = 0;
 
+    public GameObject ExplosionParticles;
 
 
 
@@ -69,9 +60,6 @@ public class EnemyMovement : MonoBehaviour
         planeCollider = GetComponent<Collider2D>();
     }
 
-    private void Awake()
-    {
-    }
 
     // Update is called once per frame
     void Update()
@@ -223,6 +211,14 @@ public class EnemyMovement : MonoBehaviour
 
             
         }
+
+        if (collision.CompareTag("Ground"))
+        {
+            ParticleSystem temp = Instantiate(ExplosionParticles, transform.position, transform.rotation).GetComponent<ParticleSystem>();
+            temp.Play();
+            Destroy(gameObject);
+
+        }
     }
 
 
@@ -270,6 +266,17 @@ public class EnemyMovement : MonoBehaviour
     private void Shoot()
     {
         Instantiate(enemyBullet, transform);
+    }
+
+    public void Fall()
+    {
+        tickAI = false;
+
+        StopAllCoroutines();
+        rotateTowardsPlayer = false;
+
+        Rb.gravityScale = 1.5f;
+        
     }
 
 }
